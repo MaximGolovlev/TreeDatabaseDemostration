@@ -21,13 +21,16 @@ class Node<Element>: NSCopying {
         self.id = UUID().uuidString
         self.value = value
     }
-    /// Parameters
+    /// Add child node to parent node
+    /// - parameter child: Child Node
     func add(child: Node) {
         children.append(child)
         child.parent = self
         child.height = height + 1
     }
     
+    /// Find and remove first node that is equal to given node
+    /// - parameter node: Given Node
     func remove(node: Node) {
         if let result = search(element: node) {
             result.isDeleted = true
@@ -39,7 +42,7 @@ class Node<Element>: NSCopying {
         node.id = id
         return node
     }
-    
+    /// Create and return a copy of a current node and all of it's children. Parent references remain unchanged
     func deepCopy() -> Node<Element> {
         let node = Node(value: self.value)
         node.parent = parent
@@ -54,7 +57,7 @@ class Node<Element>: NSCopying {
         
         return node
     }
-    
+    /// Create and return an array of node and oall of it's children in order
     func getAllElements() -> [Node<Element>] {
         if children.isEmpty {
             return [self]
@@ -69,6 +72,8 @@ class Node<Element>: NSCopying {
         return result
     }
     
+    /// Find and return first node that is equal to given node
+    /// - parameter node: Given Node
     func search(element: Node) -> Node? {
 
         if element == self {
@@ -84,6 +89,8 @@ class Node<Element>: NSCopying {
         return nil
     }
     
+    /// Update height of a given node and all of it's children
+    /// - parameter node: Given Node
     func updateHeight(node: Node) {
         
         node.height += 1
@@ -93,6 +100,8 @@ class Node<Element>: NSCopying {
         }
     }
     
+    /// Merge single node without children into current node
+    /// - parameter node: Single Node
     func merge(node: Node) -> Node<Element> {
         
         let copy = node.copy() as! Node
@@ -115,6 +124,8 @@ class Node<Element>: NSCopying {
         }
     }
     
+    /// Merge given node into current node
+    /// - parameter node: Given Node
     func merge(tree: Node) {
         
         if let match = search(element: tree) {
@@ -153,6 +164,8 @@ extension Node: CustomStringConvertible {
 
 extension Node where Element: Equatable {
     
+    /// Find and return the first node witch value is equal to the given node
+    /// - parameter node: Given Node
     func search(value: Element) -> Node? {
 
         if value == self.value {
