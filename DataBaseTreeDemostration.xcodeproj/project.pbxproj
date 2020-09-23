@@ -13,6 +13,10 @@
 		FAFE645C251A32F9009C900B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAFE645A251A32F9009C900B /* Main.storyboard */; };
 		FAFE645E251A32FC009C900B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAFE645D251A32FC009C900B /* Assets.xcassets */; };
 		FAFE6461251A32FD009C900B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAFE645F251A32FD009C900B /* LaunchScreen.storyboard */; };
+		FAFE646A251A3329009C900B /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFE6469251A3329009C900B /* Node.swift */; };
+		FAFE646E251A38DE009C900B /* NodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFE646C251A38DE009C900B /* NodeTableViewCell.swift */; };
+		FAFE646F251A38DE009C900B /* NodeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAFE646D251A38DE009C900B /* NodeTableViewCell.xib */; };
+		FAFE6473251AC6A1009C900B /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFE6472251AC6A1009C900B /* Alertable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		FAFE645D251A32FC009C900B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAFE6460251A32FD009C900B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FAFE6462251A32FD009C900B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAFE6469251A3329009C900B /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		FAFE646C251A38DE009C900B /* NodeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTableViewCell.swift; sourceTree = "<group>"; };
+		FAFE646D251A38DE009C900B /* NodeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NodeTableViewCell.xib; sourceTree = "<group>"; };
+		FAFE6472251AC6A1009C900B /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +64,9 @@
 		FAFE6453251A32F9009C900B /* DataBaseTreeDemostration */ = {
 			isa = PBXGroup;
 			children = (
+				FAFE6471251AC694009C900B /* Protocols */,
+				FAFE646B251A38C3009C900B /* Cell */,
+				FAFE6468251A3306009C900B /* Model */,
 				FAFE6454251A32F9009C900B /* AppDelegate.swift */,
 				FAFE6456251A32F9009C900B /* SceneDelegate.swift */,
 				FAFE6458251A32F9009C900B /* ViewController.swift */,
@@ -65,6 +76,31 @@
 				FAFE6462251A32FD009C900B /* Info.plist */,
 			);
 			path = DataBaseTreeDemostration;
+			sourceTree = "<group>";
+		};
+		FAFE6468251A3306009C900B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FAFE6469251A3329009C900B /* Node.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FAFE646B251A38C3009C900B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FAFE646C251A38DE009C900B /* NodeTableViewCell.swift */,
+				FAFE646D251A38DE009C900B /* NodeTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		FAFE6471251AC694009C900B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				FAFE6472251AC6A1009C900B /* Alertable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,6 +164,7 @@
 				FAFE6461251A32FD009C900B /* LaunchScreen.storyboard in Resources */,
 				FAFE645E251A32FC009C900B /* Assets.xcassets in Resources */,
 				FAFE645C251A32F9009C900B /* Main.storyboard in Resources */,
+				FAFE646F251A38DE009C900B /* NodeTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,9 +175,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAFE6473251AC6A1009C900B /* Alertable.swift in Sources */,
 				FAFE6459251A32F9009C900B /* ViewController.swift in Sources */,
+				FAFE646E251A38DE009C900B /* NodeTableViewCell.swift in Sources */,
 				FAFE6455251A32F9009C900B /* AppDelegate.swift in Sources */,
 				FAFE6457251A32F9009C900B /* SceneDelegate.swift in Sources */,
+				FAFE646A251A3329009C900B /* Node.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
