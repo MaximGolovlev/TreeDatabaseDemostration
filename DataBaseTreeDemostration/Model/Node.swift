@@ -102,26 +102,37 @@ class Node<Element>: NSCopying {
     
     /// Merge single node without children into current node
     /// - parameter node: Single Node
-    func merge(node: Node) -> Node<Element> {
+    func merge(node: Node) -> Node<Element>? {
         
-        let copy = node.copy() as! Node
-        
-        if copy == self {
+        if node == self {
             return self
-        } else if copy.parent == self, !children.contains(copy) {
-            add(child: copy)
+        } else if node.parent == self {
+            if children.contains(node) {
+                return self
+            }
+            add(child: node)
             return self
-        } else if self.parent == copy {
-            copy.add(child: self)
+        } else if self.parent == node {
+            node.add(child: self)
             self.height -= 1
             updateHeight(node: self)
-            return copy
-        } else {
-            for child in children {
-                _ = child.merge(node: node)
+            return node
+        } else if !children.isEmpty {
+            
+            for index in 0...(children.count - 1) {
+                let child = children[index]
+                let result = child.merge(node: node)
+                if result == child {
+                    return self
+                }
+                if result == nil, index == children.count - 1 {
+                    return nil
+                }
             }
             return self
         }
+        
+        return nil
     }
     
     /// Merge given node into current node
