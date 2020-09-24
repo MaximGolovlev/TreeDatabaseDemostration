@@ -52,6 +52,7 @@ class ViewController: UIViewController, Alertable {
         let five = Node(value: 500)
         let six = Node(value: 600)
         let seven = Node(value: 700)
+        let eight = Node(value: 800)
 
         one.add(child: two)
         two.add(child: tree)
@@ -59,6 +60,7 @@ class ViewController: UIViewController, Alertable {
         tree.add(child: five)
         four.add(child: six)
         four.add(child: seven)
+        five.add(child: eight)
         
         return one
     }()
@@ -81,6 +83,19 @@ class ViewController: UIViewController, Alertable {
         
         databaseTree = defaultTree.deepCopy()
         databaseNodes = databaseTree?.getAllElements() ?? []
+    }
+    
+    func updateCasheElements() {
+        self.casheNodes = self.casheTrees.reduce(into: [Node<Int>](), { res, item in
+            let elements = item.getAllElements()
+            res.append(contentsOf: elements)
+        })
+    }
+    
+    func keepCurrentSelection(tableView: UITableView?, index: IndexPath) {
+        tableView?.performBatchUpdates({}) { (_) in
+            tableView?.selectRow(at: index, animated: false, scrollPosition: .none)
+        }
     }
     
     @IBAction func shiftTapped(_ sender: Any) {
@@ -117,11 +132,7 @@ class ViewController: UIViewController, Alertable {
             
             casheTrees = attemptToMerge(trees: casheTrees, rootIndex: lastModifiedIndex)
             
-            self.casheNodes = self.casheTrees.reduce(into: [Node<Int>](), { res, item in
-                let elements = item.getAllElements()
-                res.append(contentsOf: elements)
-            })
-            
+            updateCasheElements()
             cashTableView.reloadData()
         }
     }
@@ -153,22 +164,15 @@ class ViewController: UIViewController, Alertable {
         if let index = cashTableView.indexPathForSelectedRow {
             let node = casheNodes[index.row]
             
-            showInputDialog(title: "Input value", actionTitle: "Done", cancelTitle: "Cancel", inputKeyboardType: .numberPad) { [weak self] (query) in
+            showInputDialog(title: "Create value", actionTitle: "Add", inputKeyboardType: .numberPad) { [weak self] (query) in
                 
                 guard let query = query, let intValue = Int(query) else { return }
                 
                 node.add(child: Node(value: intValue))
                 
-                self?.casheNodes = self?.casheTrees.reduce(into: [Node<Int>](), { res, item in
-                    let elements = item.getAllElements()
-                    res.append(contentsOf: elements)
-                }) ?? []
-                
+                self?.updateCasheElements()
                 self?.cashTableView.reloadData()
-                
-                self?.cashTableView.performBatchUpdates({}) { [weak self] (_) in
-                    self?.cashTableView.selectRow(at: index, animated: false, scrollPosition: .none)
-                }
+                self?.keepCurrentSelection(tableView: self?.cashTableView, index: index)
             }
         }
     }
@@ -178,15 +182,9 @@ class ViewController: UIViewController, Alertable {
             let node = casheNodes[index.row]
             node.remove()
             
-            self.casheNodes = self.casheTrees.reduce(into: [Node<Int>](), { res, item in
-                let elements = item.getAllElements()
-                res.append(contentsOf: elements)
-            })
+            updateCasheElements()
             cashTableView.reloadData()
-            
-            cashTableView.performBatchUpdates({}) { [weak self] (_) in
-                self?.cashTableView.selectRow(at: index, animated: false, scrollPosition: .none)
-            }
+            keepCurrentSelection(tableView: cashTableView, index: index)
         }
     }
 
@@ -194,22 +192,15 @@ class ViewController: UIViewController, Alertable {
         if let index = cashTableView.indexPathForSelectedRow {
             let node = casheNodes[index.row]
                 
-            showInputDialog(title: "Input value", actionTitle: "Done", cancelTitle: "Cancel", inputKeyboardType: .numberPad) { [weak self] (query) in
+            showInputDialog(title: "Edit value", actionTitle: "Done", inputDefaultValue: "\(node.value)", inputKeyboardType: .numberPad) { [weak self] (query) in
                 
                 guard let query = query, let intValue = Int(query) else { return }
                 
                 node.value = intValue
                 
-                 self?.casheNodes = self?.casheTrees.reduce(into: [Node<Int>](), { res, item in
-                     let elements = item.getAllElements()
-                     res.append(contentsOf: elements)
-                 }) ?? []
-                
+                self?.updateCasheElements()
                 self?.cashTableView.reloadData()
-                
-                self?.cashTableView.performBatchUpdates({}) { [weak self] (_) in
-                    self?.cashTableView.selectRow(at: index, animated: false, scrollPosition: .none)
-                }
+                self?.keepCurrentSelection(tableView: self?.cashTableView, index: index)
             }
         }
     }

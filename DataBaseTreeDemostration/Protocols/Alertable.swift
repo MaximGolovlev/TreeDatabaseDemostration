@@ -13,9 +13,8 @@ protocol Alertable {
     subtitle:String?,
     actionTitle:String?,
     cancelTitle:String?,
-    inputPlaceholder:String?,
+    inputDefaultValue: String?,
     inputKeyboardType: UIKeyboardType,
-    cancelHandler: ((UIAlertAction) -> Swift.Void)?,
     actionHandler: ((_ text: String?) -> Void)?)
 }
 
@@ -24,14 +23,13 @@ extension Alertable where Self: UIViewController {
                          subtitle:String? = nil,
                          actionTitle:String? = "Add",
                          cancelTitle:String? = "Cancel",
-                         inputPlaceholder:String? = nil,
+                         inputDefaultValue: String? = nil,
                          inputKeyboardType:UIKeyboardType = UIKeyboardType.default,
-                         cancelHandler: ((UIAlertAction) -> Swift.Void)? = nil,
                          actionHandler: ((_ text: String?) -> Void)? = nil) {
 
         let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
         alert.addTextField { (textField:UITextField) in
-            textField.placeholder = inputPlaceholder
+            textField.text = inputDefaultValue
             textField.keyboardType = inputKeyboardType
         }
         alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { (action:UIAlertAction) in
@@ -41,7 +39,7 @@ extension Alertable where Self: UIViewController {
             }
             actionHandler?(textField.text)
         }))
-        alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: cancelHandler))
+        alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel))
 
         self.present(alert, animated: true, completion: nil)
     }

@@ -62,7 +62,7 @@ class Node<Element>: NSCopying {
         
         return node
     }
-    /// Create and return an array of node and oall of it's children in order
+    /// Create and return an array of node and all of it's children in order
     func getAllElements() -> [Node<Element>] {
         if children.isEmpty {
             return [self]
@@ -96,12 +96,12 @@ class Node<Element>: NSCopying {
     
     /// Update height of a given node and all of it's children
     /// - parameter node: Given Node
-    func updateHeight(node: Node) {
+    func updateHeight(node: Node, value: Int) {
         
-        node.height += 1
+        node.height = value
         
         for child in node.children {
-            updateHeight(node: child)
+            updateHeight(node: child, value: value + 1)
         }
     }
     
@@ -116,11 +116,11 @@ class Node<Element>: NSCopying {
                 return self
             }
             add(child: node)
+            updateHeight(node: node, value: node.height)
             return self
         } else if self.parent == node {
             node.add(child: self)
-            self.height -= 1
-            updateHeight(node: self)
+            updateHeight(node: self, value: self.height)
             return node
         } else if !children.isEmpty {
             
