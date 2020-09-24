@@ -89,6 +89,8 @@ class ViewController: UIViewController, Alertable {
             let node = databaseNodes[index.row]
             let copy = node.copy() as! Node<Int>
             
+            var lastModifiedIndex = 0
+            
             if casheTrees.isEmpty {
                 casheTrees = [copy]
             } else {
@@ -99,10 +101,12 @@ class ViewController: UIViewController, Alertable {
                     
                     if let tree = casheTree.merge(node: copy) {
                         casheTrees[index] = tree
+                        lastModifiedIndex = index
                         break
                     } else {
                         if index == casheTrees.count - 1 {
                             casheTrees.append(copy)
+                            lastModifiedIndex = casheTrees.count - 1
                         } else {
                             continue
                         }
@@ -111,7 +115,7 @@ class ViewController: UIViewController, Alertable {
                 
             }
             
-          //  casheTrees = attemptToMerge(trees: casheTrees)
+            casheTrees = attemptToMerge(trees: casheTrees, rootIndex: lastModifiedIndex)
             
             self.casheNodes = self.casheTrees.reduce(into: [Node<Int>](), { res, item in
                 let elements = item.getAllElements()
@@ -122,9 +126,9 @@ class ViewController: UIViewController, Alertable {
         }
     }
     
-    func attemptToMerge(trees: [Node<Int>]) -> [Node<Int>] {
+    func attemptToMerge(trees: [Node<Int>], rootIndex: Int) -> [Node<Int>] {
         
-        var rootTree = trees[0]
+        var rootTree = trees[rootIndex]
         var nonMergingTrees = [Node<Int>]()
         
         for index in 0...(trees.count - 1) {
@@ -172,10 +176,12 @@ class ViewController: UIViewController, Alertable {
     @IBAction func removeTapped(_ sender: Any) {
         if let index = cashTableView.indexPathForSelectedRow {
             let node = casheNodes[index.row]
-          //  casheTree?.remove(node: node)
+            node.remove()
             
-            
-         //   casheNodes = casheTree?.getAllElements() ?? []
+            self.casheNodes = self.casheTrees.reduce(into: [Node<Int>](), { res, item in
+                let elements = item.getAllElements()
+                res.append(contentsOf: elements)
+            })
             cashTableView.reloadData()
             
             cashTableView.performBatchUpdates({}) { [weak self] (_) in
@@ -194,7 +200,11 @@ class ViewController: UIViewController, Alertable {
                 
                 node.value = intValue
                 
-             //   self?.casheNodes = self?.casheTree?.getAllElements() ?? []
+                 self?.casheNodes = self?.casheTrees.reduce(into: [Node<Int>](), { res, item in
+                     let elements = item.getAllElements()
+                     res.append(contentsOf: elements)
+                 }) ?? []
+                
                 self?.cashTableView.reloadData()
                 
                 self?.cashTableView.performBatchUpdates({}) { [weak self] (_) in
@@ -206,16 +216,17 @@ class ViewController: UIViewController, Alertable {
     
     @IBAction func applyTapped(_ sender: Any) {
         
-//        if let casheTree = casheTree {
-//            databaseTree?.merge(tree: casheTree)
-//        }
+        for tree in casheTrees {
+            databaseTree?.merge(tree: tree)
+        }
+
         databaseNodes = databaseTree?.getAllElements() ?? []
         databaseTableView.reloadData()
     }
     
     @IBAction func resetTapped(_ sender: Any) {
         casheNodes.removeAll()
-     //   casheTree = nil
+        casheTrees.removeAll()
         databaseTree = defaultTree.deepCopy()
         databaseNodes = databaseTree?.getAllElements() ?? []
         cashTableView.reloadData()

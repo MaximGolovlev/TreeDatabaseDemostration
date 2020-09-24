@@ -29,6 +29,11 @@ class Node<Element>: NSCopying {
         child.height = height + 1
     }
     
+    /// Remove current node
+    func remove() {
+        isDeleted = true
+    }
+    
     /// Find and remove first node that is equal to given node
     /// - parameter node: Given Node
     func remove(node: Node) {
