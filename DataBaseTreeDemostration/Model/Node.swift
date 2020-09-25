@@ -27,6 +27,9 @@ class Node<Element>: NSCopying {
         children.append(child)
         child.parent = self
         child.height = height + 1
+        if isDeleted {
+            child.remove()
+        }
     }
     
     /// Remove current node and it's children
