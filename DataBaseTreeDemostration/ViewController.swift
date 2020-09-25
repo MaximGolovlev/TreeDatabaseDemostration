@@ -138,7 +138,9 @@ class ViewController: UIViewController, Alertable {
             cashTableView.reloadData()
         }
     }
-    
+    /// Attempt to update connections between trees that were previously not directly connected
+    /// - parameter trees: Array of trees
+    /// - parameter rootIndex: Index of the tree in that array witch was last modified
     func attemptToMerge(trees: [Node<Int>], rootIndex: Int) -> [Node<Int>] {
         
         var rootTree = trees[rootIndex]
