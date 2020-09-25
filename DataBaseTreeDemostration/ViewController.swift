@@ -143,24 +143,30 @@ class ViewController: UIViewController, Alertable {
     /// - parameter rootIndex: Index of the tree in that array witch was last modified
     func attemptToMerge(trees: [Node<Int>], rootIndex: Int) -> [Node<Int>] {
         
-        var rootTree = trees[rootIndex]
-        var nonMergingTrees = [Node<Int>]()
+        var trees = trees
         
         for index in 0...(trees.count - 1) {
-        
-            let tree = trees[index]
             
-            if let tree = rootTree.merge(node: tree) {
-                 rootTree = tree
-             } else {
-                 nonMergingTrees.append(tree)
-             }
+            guard var rootTree = trees[safe: index] else { continue }
+            var nonMergingTrees = [Node<Int>]()
+            
+            for index in 0...(trees.count - 1) {
+            
+                let tree = trees[index]
+                
+                if let tree = rootTree.merge(node: tree) {
+                     rootTree = tree
+                 } else {
+                     nonMergingTrees.append(tree)
+                 }
+            }
+            
+            trees = [rootTree]
+            trees.append(contentsOf: nonMergingTrees)
+            
         }
         
-        var rootArray = [rootTree]
-        rootArray.append(contentsOf: nonMergingTrees)
-        
-        return rootArray
+        return trees
         
     }
 

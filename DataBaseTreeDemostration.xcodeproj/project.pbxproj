@@ -17,6 +17,7 @@
 		FAFE646E251A38DE009C900B /* NodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFE646C251A38DE009C900B /* NodeTableViewCell.swift */; };
 		FAFE646F251A38DE009C900B /* NodeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAFE646D251A38DE009C900B /* NodeTableViewCell.xib */; };
 		FAFE6473251AC6A1009C900B /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFE6472251AC6A1009C900B /* Alertable.swift */; };
+		FAFE6476251E5A03009C900B /* Foundation+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFE6475251E5A03009C900B /* Foundation+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		FAFE646C251A38DE009C900B /* NodeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTableViewCell.swift; sourceTree = "<group>"; };
 		FAFE646D251A38DE009C900B /* NodeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NodeTableViewCell.xib; sourceTree = "<group>"; };
 		FAFE6472251AC6A1009C900B /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
+		FAFE6475251E5A03009C900B /* Foundation+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		FAFE6453251A32F9009C900B /* DataBaseTreeDemostration */ = {
 			isa = PBXGroup;
 			children = (
+				FAFE6474251E59E0009C900B /* Helpers */,
 				FAFE6471251AC694009C900B /* Protocols */,
 				FAFE646B251A38C3009C900B /* Cell */,
 				FAFE6468251A3306009C900B /* Model */,
@@ -101,6 +104,14 @@
 				FAFE6472251AC6A1009C900B /* Alertable.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		FAFE6474251E59E0009C900B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FAFE6475251E5A03009C900B /* Foundation+Ext.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,6 +192,7 @@
 				FAFE6455251A32F9009C900B /* AppDelegate.swift in Sources */,
 				FAFE6457251A32F9009C900B /* SceneDelegate.swift in Sources */,
 				FAFE646A251A3329009C900B /* Node.swift in Sources */,
+				FAFE6476251E5A03009C900B /* Foundation+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
