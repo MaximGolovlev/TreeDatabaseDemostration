@@ -53,6 +53,7 @@ class ViewController: UIViewController, Alertable {
         let six = Node(value: 600)
         let seven = Node(value: 700)
         let eight = Node(value: 800)
+        let nine = Node(value: 900)
 
         one.add(child: two)
         two.add(child: tree)
@@ -61,6 +62,7 @@ class ViewController: UIViewController, Alertable {
         four.add(child: six)
         four.add(child: seven)
         five.add(child: eight)
+        seven.add(child: nine)
         
         return one
     }()
