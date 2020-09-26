@@ -153,7 +153,9 @@ class Node<Element>: NSCopying {
         
         if let match = search(element: tree) {
             match.value = tree.value
-            match.isDeleted = tree.isDeleted
+            if tree.isDeleted {
+                match.remove()
+            }
         } else if let parent = tree.parent, let selfParent = search(element: parent){
             let copy = tree.deepCopy()
             copy.height = selfParent.height
