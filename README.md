@@ -1,6 +1,6 @@
 # TreeDatabaseDemostration
 
-Запустить билд https://appetize.io/app/z8796bqmzg86jm78xattbzz7n8?device=iphone6s&scale=75&orientation=portrait&osVersion=13.3
+Запустить билд https://appetize.io/app/bc7krmznkc87wykk6fzyypnq2c?device=iphone6s&scale=75&orientation=portrait&osVersion=13.3
 
 Условия:
 
