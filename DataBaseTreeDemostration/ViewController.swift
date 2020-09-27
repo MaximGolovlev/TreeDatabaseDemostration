@@ -100,6 +100,42 @@ class ViewController: UIViewController, Alertable {
         }
     }
     
+    /// Attempt to update connections between trees that were previously not directly connected
+    /// - parameter trees: Array of trees
+    /// - parameter rootIndex: Index of the tree in that array witch was last modified
+    func attemptToMerge(trees: [Node<Int>], rootIndex: Int) -> [Node<Int>] {
+        
+        var trees = trees
+        
+        for index in 0...(trees.count - 1) {
+            
+            guard var rootTree = trees[safe: index] else { continue }
+            var nonMergingTrees = [Node<Int>]()
+            
+            for index in 0...(trees.count - 1) {
+            
+                let tree = trees[index]
+                
+                if let tree = rootTree.merge(node: tree) {
+                     rootTree = tree
+                 } else {
+                     nonMergingTrees.append(tree)
+                 }
+            }
+            
+            trees = [rootTree]
+            trees.append(contentsOf: nonMergingTrees)
+            
+        }
+        
+        return trees
+        
+    }
+    
+    func updateCasheForRemoved() {
+        
+    }
+    
     @IBAction func shiftTapped(_ sender: Any) {
         
         if let index = databaseTableView.indexPathForSelectedRow {
@@ -137,37 +173,6 @@ class ViewController: UIViewController, Alertable {
             updateCasheElements()
             cashTableView.reloadData()
         }
-    }
-    /// Attempt to update connections between trees that were previously not directly connected
-    /// - parameter trees: Array of trees
-    /// - parameter rootIndex: Index of the tree in that array witch was last modified
-    func attemptToMerge(trees: [Node<Int>], rootIndex: Int) -> [Node<Int>] {
-        
-        var trees = trees
-        
-        for index in 0...(trees.count - 1) {
-            
-            guard var rootTree = trees[safe: index] else { continue }
-            var nonMergingTrees = [Node<Int>]()
-            
-            for index in 0...(trees.count - 1) {
-            
-                let tree = trees[index]
-                
-                if let tree = rootTree.merge(node: tree) {
-                     rootTree = tree
-                 } else {
-                     nonMergingTrees.append(tree)
-                 }
-            }
-            
-            trees = [rootTree]
-            trees.append(contentsOf: nonMergingTrees)
-            
-        }
-        
-        return trees
-        
     }
 
     @IBAction func addTapped(_ sender: Any) {
@@ -223,6 +228,13 @@ class ViewController: UIViewController, Alertable {
 
         databaseNodes = databaseTree?.getAllElements() ?? []
         databaseTableView.reloadData()
+        
+        updateCasheElements()
+        cashTableView.reloadData()
+        if let index = cashTableView.indexPathForSelectedRow {
+            keepCurrentSelection(tableView: cashTableView, index: index)
+        }
+        
     }
     
     @IBAction func resetTapped(_ sender: Any) {
