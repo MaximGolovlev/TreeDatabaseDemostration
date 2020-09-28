@@ -222,8 +222,10 @@ class ViewController: UIViewController, Alertable {
     
     @IBAction func applyTapped(_ sender: Any) {
         
-        for tree in casheTrees {
-            databaseTree?.merge(tree: tree)
+        for _ in 0...1 {
+            for tree in casheTrees {
+                databaseTree?.merge(tree: tree)
+            }
         }
 
         databaseNodes = databaseTree?.getAllElements() ?? []
